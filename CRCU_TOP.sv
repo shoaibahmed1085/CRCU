@@ -1,10 +1,23 @@
+/********************************************************
+ Project name                  : CRCU(Clock & Reset Control Unit)   
+ File Name                     : CRCU_TOP.sv
+ Module/class Name             : CRCU_TOP
+ Author                        : Shoaib Ahmed
+ Description                   : Top module for CRCU which contains signals seen in block diagram
+ File version                  : 1.0 
+ Copyright Smart Socs Technologies 
+ THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+ WHICH IS THE PROPERTY OF SMART SOCS TECHNOLOGIES OR ITS
+ LICENSORS AND IS SUBJECT TO LICENSE TERMS. 
+***************************************************************/
+
 `include "./APB_CRCU.sv"
 
 module CRCU_TOP (
 
 //master inputs
-	input master_clk,
-	input master_rst,
+	input CRCU_CLK,
+	input CRCU_RST,
 	
 //apb inputs
 	input PRESETN,
@@ -37,8 +50,11 @@ module CRCU_TOP (
 	output vp_debug_rst
 );
 
+
+	//wire [2:0] spu_clock_freq;
+	
 /*###################################################################
-		APB CODE
+		APB ADDRESS DECODER
 ###################################################################*/
 
 	APB_CRCU apb_inst (
@@ -58,16 +74,12 @@ module CRCU_TOP (
 		REGISTER MAPPING
 ###################################################################*/
 
-	//if i am writing first data at offset 0x0000 and it is 32 bit wide and 
-	// if i am writing next data at offset 0x0004 then what is left in 0x0001-0x0003? is it blank?
-	// this logic applies if it is a depth memory, but if it is contiguous then how to model it?
-	
-	// SPU CLK REGISTER
-	always @(posedge PCLK) begin
-		if(apb_mem[][])
-			<do this>
-	end
-
+	clock_management dut (
+		.spu_clk_freq(spu_clk_freq) //input from APB for freq manipulation
+		.
+		.
+		.spu_clk_o(spu_clk)//ouptut of top module connected to output of clock_management, LEGAL?
+	);
 
 
 endmodule
